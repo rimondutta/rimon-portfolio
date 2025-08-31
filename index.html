@@ -398,6 +398,65 @@
 </head>
 
 <body>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="assets/song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Music Button -->
+  <button id="musicBtn" style="
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FFD600, #FFC700);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 9999;
+">
+    <!-- Icon (Play/Pause) -->
+    <span id="musicIcon" style="font-size:24px;">⏸</span>
+  </button>
+
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicIcon = document.getElementById('musicIcon');
+
+    // Toggle play/pause on click
+    musicBtn.addEventListener('click', () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicIcon.textContent = "⏸"; // Pause icon
+      } else {
+        bgMusic.pause();
+        musicIcon.textContent = "▶"; // Play icon
+      }
+    });
+
+    // Optional: hover effect
+    musicBtn.addEventListener('mouseenter', () => {
+      musicBtn.style.transform = "scale(1.1)";
+      musicBtn.style.boxShadow = "0 12px 25px rgba(0,0,0,0.3)";
+    });
+    musicBtn.addEventListener('mouseleave', () => {
+      musicBtn.style.transform = "scale(1)";
+      musicBtn.style.boxShadow = "0 8px 20px rgba(0,0,0,0.2)";
+    });
+
+    // Set volume
+    bgMusic.volume = 0.4;
+  </script>
+
+
   <div class="custom-code">
     <div class="cursor"></div>
     <div class="transition-wrapper">
