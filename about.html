@@ -324,62 +324,252 @@
 <body>
 
 
-  <!-- Background Music -->
-  <audio id="bgMusic" autoplay loop>
-    <source src="assets/song3.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Floating Music Button -->
-  <button id="musicBtn" style="
+  <!-- WhatsApp Floating Button with Styled Glowing Popup -->
+  <div id="whatsappWrapper" style="
     position: fixed;
     bottom: 25px;
     right: 25px;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #FFD600, #FFC700);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s, box-shadow 0.2s;
     z-index: 9999;
-">
-    <!-- Icon (Play/Pause) -->
-    <span id="musicIcon" style="font-size:24px;">⏸</span>
-  </button>
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  ">
+
+    <!-- Popup Message -->
+    <div id="popupMsg" class="css-bg6xqr" style="
+      margin-bottom: 8px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      gap: 6px;
+    ">
+      ✨ Chat Now
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a id="whatsappBtn" href="https://wa.me/8801404587727?text=Hello%2C%20I%20want%20to%20know%20more!" target="_blank"
+      class="whatsapp-glow">
+      <!-- WhatsApp SVG Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="28" height="28" fill="white">
+        <path d="M380.9 97.1C339 55.1 283.2 32 224 32 100.3 
+          32 0 132.3 0 256c0 45 11.8 88.7 34.3 127.1L0 
+          480l99.6-32.8C137.5 472.2 180 480 224 
+          480c123.7 0 224-100.3 224-224 
+          0-59.2-23.1-115-67.1-158.9zM224 
+          438.7c-39.8 0-78.7-10.7-112.7-30.9l-7.9-4.7-59.1 
+          19.5L73 365l-5.1-8.3C46.8 327.7 36.3 292.4 
+          36.3 256c0-103.5 84.2-187.7 187.7-187.7 
+          50.1 0 97.2 19.5 132.7 55s55 82.6 
+          55 132.7c0 103.5-84.2 187.7-187.7 
+          187.7zm101.5-138.6c-5.6-2.8-33.1-16.3-38.2-18.1-5.1-1.9-8.8-2.8-12.5 
+          2.8s-14.4 18.1-17.6 21.9c-3.2 3.7-6.5 
+          4.2-12.1 1.4-33.1-16.3-54.6-29.1-76.5-65.7-5.8-10 
+          5.8-9.3 16.3-31.1 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.4-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2s-9.7 
+          1.4-14.7 6.9c-5.1 5.6-19.2 18.8-19.2 
+          45.9s19.7 53.2 22.4 56.9c2.8 3.7 
+          38.8 59.2 94.1 83.1 13.1 5.6 23.3 
+          8.9 31.3 11.4 13.1 4.2 25 3.6 
+          34.4 2.2 10.5-1.6 33.1-13.5 
+          37.7-26.5 4.6-12.8 4.6-23.7 
+          3.2-26.5-1.3-2.8-5.1-4.5-10.7-7.3z" />
+      </svg>
+    </a>
+  </div>
+
+  <style>
+    /* Chat Now Popup */
+    .css-bg6xqr {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      cursor: pointer;
+      user-select: none;
+      vertical-align: middle;
+      appearance: none;
+      font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
+      line-height: 1.75;
+      text-transform: uppercase;
+      min-width: 64px;
+      height: 49px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      position: relative;
+      outline: 0;
+      border: none;
+      margin: 0;
+      text-decoration: none;
+      border-radius: 26px;
+      padding: 4px 16px;
+      background: rgb(40, 26, 71) !important;
+      /* dark purple */
+      animation: glowPulse 2s infinite;
+    }
+
+    /* WhatsApp Round Button */
+    .whatsapp-glow {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #FFD600, #FFC700);
+      /* Yellow gradient */
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      animation: glowPulseYellow 2s infinite;
+    }
+
+    /* Purple Glow Animation (Chat Now) */
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 8px rgba(150, 80, 255, 0.4),
+          0 0 16px rgba(150, 80, 255, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(180, 100, 255, 0.8),
+          0 0 40px rgba(180, 100, 255, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 8px rgba(150, 80, 255, 0.4),
+          0 0 16px rgba(150, 80, 255, 0.3);
+      }
+    }
+
+    /* Yellow Glow Animation (WhatsApp Button) */
+    @keyframes glowPulseYellow {
+      0% {
+        box-shadow: 0 0 8px rgba(255, 214, 0, 0.4),
+          0 0 16px rgba(255, 199, 0, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(255, 214, 0, 0.8),
+          0 0 40px rgba(255, 199, 0, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 8px rgba(255, 214, 0, 0.4),
+          0 0 16px rgba(255, 199, 0, 0.3);
+      }
+    }
+  </style>
 
   <script>
-    const bgMusic = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicBtn');
-    const musicIcon = document.getElementById('musicIcon');
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const popupMsg = document.getElementById('popupMsg');
 
-    // Toggle play/pause on click
-    musicBtn.addEventListener('click', () => {
-      if (bgMusic.paused) {
-        bgMusic.play();
-        musicIcon.textContent = "⏸"; // Pause icon
-      } else {
-        bgMusic.pause();
-        musicIcon.textContent = "▶"; // Play icon
-      }
+    // Show popup on hover
+    whatsappBtn.addEventListener('mouseenter', () => {
+      popupMsg.style.opacity = "1";
+      popupMsg.style.transform = "translateY(0)";
+      whatsappBtn.style.transform = "scale(1.1)";
     });
 
-    // Optional: hover effect
-    musicBtn.addEventListener('mouseenter', () => {
-      musicBtn.style.transform = "scale(1.1)";
-      musicBtn.style.boxShadow = "0 12px 25px rgba(0,0,0,0.3)";
-    });
-    musicBtn.addEventListener('mouseleave', () => {
-      musicBtn.style.transform = "scale(1)";
-      musicBtn.style.boxShadow = "0 8px 20px rgba(0,0,0,0.2)";
+    // Hide popup when mouse leaves
+    whatsappBtn.addEventListener('mouseleave', () => {
+      popupMsg.style.opacity = "0";
+      popupMsg.style.transform = "translateY(10px)";
+      whatsappBtn.style.transform = "scale(1)";
     });
 
-    // Set volume
-    bgMusic.volume = 0.2;
+    // Auto show popup on page load for 3s
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        popupMsg.style.opacity = "1";
+        popupMsg.style.transform = "translateY(0)";
+      }, 500);
+
+      setTimeout(() => {
+        popupMsg.style.opacity = "0";
+        popupMsg.style.transform = "translateY(10px)";
+      }, 3500);
+    });
   </script>
+
+  <!-- glow effect -->
+  <style>
+    .pill-regular.is--border-white.is--nav {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 999px;
+      /* pill shape */
+      background: linear-gradient(135deg, #7a3cff, #a167ff);
+      /* purple gradient */
+      border: 2px solid #fff;
+      /* white border */
+      box-shadow: 0 0 10px rgba(162, 97, 255, 0.6),
+        0 0 20px rgba(122, 60, 255, 0.5);
+      animation: pillGlow 2s infinite;
+      cursor: default;
+    }
+
+    /* glowing animation */
+    @keyframes pillGlow {
+      0% {
+        box-shadow: 0 0 10px rgba(162, 97, 255, 0.6),
+          0 0 20px rgba(122, 60, 255, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(162, 97, 255, 0.9),
+          0 0 40px rgba(122, 60, 255, 0.7);
+      }
+
+      100% {
+        box-shadow: 0 0 10px rgba(162, 97, 255, 0.6),
+          0 0 20px rgba(122, 60, 255, 0.5);
+      }
+    }
+
+    /* highlight special text */
+    .pill-regular.is--border-white.is--nav .text-color-primary {
+      color: #FFD600;
+      /* glowing yellow for --7/24 */
+      font-weight: 700;
+    }
+  </style>
+  <!-- glow effect end -->
+
+
+  <style>
+    /* Apply yellow glow effect to any inline SVG */
+    .dumemearts-logo svg {
+      filter: drop-shadow(0 0 5px #FFD600) drop-shadow(0 0 10px #FFD600) drop-shadow(0 0 20px #FFD600);
+      fill: #FFD600;
+      /* makes the logo itself yellow */
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Optional: animated pulsing glow */
+    @keyframes yellowGlowPulse {
+      0% {
+        filter: drop-shadow(0 0 5px #FFD600) drop-shadow(0 0 10px #FFD600);
+      }
+
+      50% {
+        filter: drop-shadow(0 0 10px #FFD600) drop-shadow(0 0 20px #FFD600) drop-shadow(0 0 30px #FFD600);
+      }
+
+      100% {
+        filter: drop-shadow(0 0 5px #FFD600) drop-shadow(0 0 10px #FFD600);
+      }
+    }
+
+    .dumemearts-logo svg.glow {
+      animation: yellowGlowPulse 2s infinite;
+    }
+  </style>
 
   <div class="custom-code">
     <div class="cursor"></div>
